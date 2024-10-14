@@ -100,25 +100,35 @@ sap.ui.define([
 			},
 
 
-			onSearch : function (oEvent) {
-				if (oEvent.getParameters().refreshButtonPressed) {
-					// Search field's 'refresh' button has been pressed.
-					// This is visible if you select any master list item.
-					// In this case no new search is triggered, we only
-					// refresh the list binding.
-					this.onRefresh();
-				} else {
-					var aTableSearchState = [];
-					var sQuery = oEvent.getParameter("query");
+			onFilterPostsDocumentNumber: function (oEvent) {
 
-					if (sQuery && sQuery.length > 0) {
-						aTableSearchState = [new Filter("CreatedBy", FilterOperator.Contains, sQuery)];
-					}
-					this._applySearch(aTableSearchState);
-				}
+			// build filter array
+			var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				aFilter.push(new Filter("DocumentNumber", FilterOperator.Contains, sQuery));
+			}
 
+			// filter binding
+			var oTable = this.byId("table");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aFilter);
 			},
 
+			onFilterPostsPlantText: function (oEvent) {
+
+			// build filter array
+			var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				aFilter.push(new Filter("PlantText", FilterOperator.EQ, sQuery));
+			}
+
+			// filter binding
+			var oTable = this.byId("table");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aFilter);
+			},
 			/**
 			 * Event handler for refresh event. Keeps filter, sort
 			 * and group settings and refreshes the list binding.

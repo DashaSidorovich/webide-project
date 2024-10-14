@@ -35,10 +35,18 @@
 						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
 						<ToolbarSpacer />
 						<SearchField
-							id="searchField"
+							id="searchFieldDocumentNumber"
 							tooltip="{i18n>worklistSearchTooltip}"
-							search="onSearch"
-							width="auto">
+							search="onFilterPostsDocumentNumber"
+							placeholder="{i18n>searchFieldPlaceholderDocumentNumber}"
+							width="25%">
+						</SearchField>
+						<SearchField
+							id="searchFieldPlantText"
+							tooltip="{i18n>worklistSearchTooltip}"
+							search="onFilterPostsPlantText"
+							placeholder="{i18n>searchFieldPlaceholderPlantText}"
+							width="25%">
 						</SearchField>
 					</Toolbar>
 				</headerToolbar>
