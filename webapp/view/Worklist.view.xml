@@ -17,6 +17,8 @@
 			<Table
 				id="table"
 				width="auto"
+			    growingThreshold="15"
+				
 				items="{
 					path: '/zjblessons_base_Headers',
 					sorter: {
