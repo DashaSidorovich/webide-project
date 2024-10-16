@@ -20,7 +20,6 @@ sap.ui.define([
 				oSearchField = aControls[1],
 				aItems = oTable.getItems();
 
-			// table needs items
 			if (aItems.length === 0) {
 				return false;
 			}
@@ -62,7 +61,6 @@ sap.ui.define([
 							success : function (oTableItem) {
 								var oBindingContext = oTableItem.getBindingContext();
 
-								// Don't remember objects just strings since IE will not allow accessing objects of destroyed frames
 								this.getContext().currentItem = {
 									bindingPath: oBindingContext.getPath(),
 									id: oBindingContext.getProperty("ID"),
@@ -99,7 +97,6 @@ sap.ui.define([
 							viewName : sViewName,
 							visible: false,
 							matchers : function (oTable) {
-								// visible false also returns visible controls so we need an extra check here
 								return !oTable.$().is(":visible");
 							},
 							errorMessage : "The Table is still visible"
@@ -147,9 +144,7 @@ sap.ui.define([
 					iTypeSomethingInTheSearchThatCannotBeFoundAndTriggerRefresh : function () {
 						var fireRefreshButtonPressedOnSearchField = function (oSearchField) {
 
-							/*eslint-disable new-cap */
 							var oEvent = jQuery.Event("touchend");
-							/*eslint-enable new-cap */
 							oEvent.originalEvent = {refreshButtonPressed: true, id: oSearchField.getId()};
 							oEvent.target = oSearchField;
 							oEvent.srcElement = oSearchField;
@@ -213,7 +208,6 @@ sap.ui.define([
 						var aAllEntities,
 							iExpectedNumberOfItems;
 
-						// retrieve all tHeaders to be able to check for the total amount
 						this.waitFor(this.createAWaitForAnEntitySet({
 							entitySet: "tHeaders",
 							success: function (aEntityData) {
@@ -225,7 +219,6 @@ sap.ui.define([
 							id : sTableId,
 							viewName : sViewName,
 							matchers : function (oTable) {
-								// If there are less items in the list than the growingThreshold, only check for this number.
 								iExpectedNumberOfItems = Math.min(oTable.getGrowingThreshold(), aAllEntities.length);
 								return new AggregationLengthEquals({name : "items", length : iExpectedNumberOfItems}).isMatching(oTable);
 							},

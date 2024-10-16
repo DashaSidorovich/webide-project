@@ -6,13 +6,7 @@ sap.ui.define([
 
 		return UI5Object.extend("lesson1sidorovich.lesson1sidorovich.controller.ErrorHandler", {
 
-			/**
-			 * Handles application errors by automatically attaching to the model events and displaying errors when needed.
-			 * @class
-			 * @param {sap.ui.core.UIComponent} oComponent reference to the app's component
-			 * @public
-			 * @alias lesson1sidorovich.lesson1sidorovich.controller.ErrorHandler
-			 */
+			
 			constructor : function (oComponent) {
 				this._oResourceBundle = oComponent.getModel("i18n").getResourceBundle();
 				this._oComponent = oComponent;
@@ -36,12 +30,7 @@ sap.ui.define([
 				}, this);
 			},
 
-			/**
-			 * Shows a {@link sap.m.MessageBox} when a service call has failed.
-			 * Only the first error message will be display.
-			 * @param {string} sDetails a technical error to be displayed on request
-			 * @private
-			 */
+			
 			_showServiceError : function (sDetails) {
 				if (this._bMessageOpen) {
 					return;
