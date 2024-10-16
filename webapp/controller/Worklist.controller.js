@@ -25,6 +25,7 @@ sap.ui.define([
 				this._aTableSearchState = [];
 
 				oViewModel = new JSONModel({
+					sCount: '0',
 					worklistTableTitle : this.getResourceBundle().getText("worklistTableTitle"),
 					shareOnJamTitle: this.getResourceBundle().getText("worklistTitle"),
 					shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailWorklistSubject"),
@@ -53,9 +54,24 @@ sap.ui.define([
 					template: this._getTableTemplate(),
 					urlParameters: {
 						$select: 'HeaderId, DocumentNumber, DocumentDate, PlantText, RegionText, Description, Created'
+					},
+					events: {
+            			dataRequested: function () {
+                			this._getTableCounter(); 
+            			}.bind(this) 
+        }
+				});
+			},
+			
+			_getTableCounter: function (){
+				var context = this;
+				this.getModel().read('/zjblessons_base_Headers/$count', {
+					success: function (sCount) {
+						context.getModel('worklistView').setProperty('/sCount', sCount);
 					}
 				});
 			},
+			
 			_getTableTemplate: function(){
 				var oTemplate = new sap.m.ColumnListItem({
 					type: 'Navigation',
