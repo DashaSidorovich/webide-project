@@ -6,9 +6,10 @@ sap.ui.define([
 		"sap/ui/model/Filter",
 		"sap/ui/model/FilterOperator",
 		"sap/ui/model/Sorter",
+		"sap/m/MessageBox",
 		"sap/m/MessageToast"
 
-	], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter, MessageToast) {
+	], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter, MessageBox, MessageToast) {
 		"use strict";
 
 		return BaseController.extend("lesson1sidorovich.lesson1sidorovich.controller.Worklist", {
@@ -118,18 +119,22 @@ sap.ui.define([
 				{
 					HeaderID: oBindingContext.getProperty('HeaderID')
 				});
-				
-				this.getModel().remove(key,
-				{
-					success: function(oData){
-					var msg = this.getResourceBundle().getText("deleteMessage");
-					MessageToast.show(msg);
-					this.getView().byId("table").getBinding("items").refresh();
-					}.bind(this),
-					error: function(oError){
-					var msg = 'ohn0';
-					MessageToast.show(msg);
-					}.bind(this)
+				MessageBox.confirm(this.getResourceBundle().getText("deleteMessage"), {
+				title: "Confirm",                                    
+    			actions: [sap.m.MessageBox.Action.OK,
+            	sap.m.MessageBox.Action.CANCEL],         
+    			emphasizedAction: sap.m.MessageBox.Action.OK,
+    			onClose: function(oAction){
+					if(oAction === sap.m.MessageBox.Action.OK) {
+						this.getModel().remove(key,
+						{
+							success: function(oData){
+							var msg = this.getResourceBundle().getText("successDelete");
+							MessageToast.show(msg);
+							}.bind(this)
+						});
+					}
+				}.bind(this)
 				});
 			},
 			
