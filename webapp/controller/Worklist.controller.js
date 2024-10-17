@@ -5,9 +5,10 @@ sap.ui.define([
 		"lesson1sidorovich/lesson1sidorovich/model/formatter",
 		"sap/ui/model/Filter",
 		"sap/ui/model/FilterOperator",
-		"sap/ui/model/Sorter"
+		"sap/ui/model/Sorter",
+		'sap/m/MessageToast'
 
-	], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter) {
+	], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter, MessageToast) {
 		"use strict";
 
 		return BaseController.extend("lesson1sidorovich.lesson1sidorovich.controller.Worklist", {
@@ -70,6 +71,12 @@ sap.ui.define([
 						context.getModel('worklistView').setProperty('/sCount', sCount);
 					}
 				});
+			},
+			
+			onPressRefresh: function(){
+				this._bindTable();
+				var msg = this.getResourceBundle().getText("refreshMessage");
+				MessageToast.show(msg);
 			},
 			
 			_getTableTemplate: function(){

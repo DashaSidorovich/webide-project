@@ -28,8 +28,7 @@
 
 				<headerToolbar>
 					<Toolbar>
-						<Title id="tableHeader" text="{worklistView>/sCount}"/>
-						<ToolbarSpacer />
+						<Title id="tableHeader" text="{worklistView>/sCount} records"/>
 						<SearchField
 							id="searchFieldDocumentNumber"
 							tooltip="{i18n>worklistSearchTooltip}"
@@ -37,13 +36,15 @@
 							placeholder="{i18n>searchFieldPlaceholderDocumentNumber}"
 							width="25%">
 						</SearchField>
-						<SearchField
-							id="searchFieldPlantText"
-							tooltip="{i18n>worklistSearchTooltip}"
-							search="onFilterPostsPlantText"
-							placeholder="{i18n>searchFieldPlaceholderPlantText}"
-							width="25%">
-						</SearchField>
+						<ToolbarSpacer />
+						<Button
+							icon='sap-icon://refresh'
+							type='Transparent'
+							press='onPressRefresh'
+							tooltip='Refresh'
+						/>
+							
+						
 					</Toolbar>
 				</headerToolbar>
 
