@@ -6,7 +6,7 @@ sap.ui.define([
 		"sap/ui/model/Filter",
 		"sap/ui/model/FilterOperator",
 		"sap/ui/model/Sorter",
-		'sap/m/MessageToast'
+		"sap/m/MessageToast"
 
 	], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter, MessageToast) {
 		"use strict";
@@ -101,10 +101,36 @@ sap.ui.define([
 						}),
 						new sap.m.Text({
 							text: '{Created}'
+						}),
+						new sap.m.Button({
+							type: 'Transparent',
+							icon: this.getResourceBundle().getText("iDelete"),
+							press: this.onPressDelete.bind(this)
 						})
 						]
 				});
 				return oTemplate;
+			},
+			
+			onPressDelete: function (oEvent){
+				var oBindingContext = oEvent.getSource().getBindingContext(),
+				key = this.getModel().createKey('/zjblessons_base_Headers',
+				{
+					HeaderID: oBindingContext.getProperty('HeaderID')
+				});
+				
+				this.getModel().remove(key,
+				{
+					success: function(oData){
+					var msg = this.getResourceBundle().getText("deleteMessage");
+					MessageToast.show(msg);
+					this.getView().byId("table").getBinding("items").refresh();
+					}.bind(this),
+					error: function(oError){
+					var msg = 'ohn0';
+					MessageToast.show(msg);
+					}.bind(this)
+				});
 			},
 			
 			onUpdateFinished : function (oEvent) {

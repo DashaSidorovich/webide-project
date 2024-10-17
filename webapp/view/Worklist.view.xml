@@ -79,7 +79,11 @@
 						<Text text="{i18n>tableNameColumnTitleCreated}" id="nameColumnTitleCreated"/>
 					</Column>
 				</columns>
-
+				<columns>
+					<Column id="nameColumnDelete">
+						<Text text=""/>
+					</Column>
+				</columns>
 				
 			</Table>
 		</semantic:content>
